@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JW-REVIEW</title>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui">
+    <link type="text/css" rel="stylesheet" href="dist/css/base.css" />
+    <link type="text/css" rel="stylesheet" href="dist/css/review.css" />
+  </head>
+  <body>
+    <div>
+      <ul id="list">
+        <% for(let i =0; i < list.length; i++){ %>
+        <li>
+          <div class="wrap" data-id="<%= list[i]._id%>">
+            <h3>
+              <%= list[i].title%>
+            </h3>
+            <div class="date"><%= list[i].date%></div>
+          </div>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    <script>
+      document.querySelector("#list").addEventListener("click",function(t){const e=t.target.getAttribute("data-id")||t.target.parentNode.getAttribute("data-id");e&&(location.href="/"+e)});
+    </script>
+  </body>
+</html>
