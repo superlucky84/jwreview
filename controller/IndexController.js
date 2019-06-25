@@ -41,8 +41,8 @@ router.get('/', function (req, res, next) {
     lists.forEach(function (list) {
       const regDate = list.regdate;
       const year = String(regDate.getFullYear());
-      const month = String(regDate.getMonth() + 1).padStart(2, '0');
-      const day = String(regDate.getDate()).padStart(2, '0');
+      const month = String(regDate.getMonth() + 1);
+      const day = String(regDate.getDate());
       const date  = `${year}-${month}-${day}`;
 
       result.push(Object.assign(list, {date}));
@@ -53,9 +53,11 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
     var result = {};
     JmemoModel.findOne({_id: req.params.id},{note:1, title:1, category:1},function (error,view) {
-      const note = marked(view.note, {sanitize: false});
+      const viewNote = view.note || '';
+      const viewTitle = view.title || '';
+      const note = marked(viewNote, {sanitize: false});
 
-      res.render('read', {note, title: view.title});
+      res.render('read', {note, title: viewTitle});
     });
 });
 
