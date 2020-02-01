@@ -53,8 +53,8 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
     var result = {};
     JmemoModel.findOne({_id: req.params.id},{note:1, title:1, category:1},function (error,view) {
-      const viewNote = view.note || '';
-      const viewTitle = view.title || '';
+      const viewNote = view && view.note || '';
+      const viewTitle = view && view.title || '';
       const note = marked(viewNote, {sanitize: false});
 
       res.render('read', {note, title: viewTitle});
